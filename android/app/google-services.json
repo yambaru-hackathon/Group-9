@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "436654453902",
+    "project_id": "birumanchu",
+    "storage_bucket": "birumanchu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436654453902:android:e66ea19cfeae19f88f85df",
+        "android_client_info": {
+          "package_name": "com.example.group_9_birumanchu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDsp_hdRqNLKBNk9m32cHrXXAkIHPxmQ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
