@@ -7,6 +7,7 @@ import 'package:group_9_birumanchu/pages/account_page.dart';
 import 'package:group_9_birumanchu/pages/chat_page.dart';
 import 'package:group_9_birumanchu/pages/map_page.dart';
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
