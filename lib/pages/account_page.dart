@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 
 const String name = 'Dee';
+const String date = '2/23/2024';
+const String des_city = 'nago';
+const String req_shop = 'MaxValue, Aeon, SevenEleven';
+
+
 bool switch_value = true; 
 class AccountScreen extends StatelessWidget {
    const AccountScreen({Key? key}) : super(key: key);
@@ -25,13 +30,15 @@ class AccountScreen extends StatelessWidget {
                     ],
                   ),
                   Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 13, 13, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                      Icon(Icons.settings,size:35,),
                     ],
+                    ),
                   ),
-                  Icon(Icons.settings,size:35,),
                 ],
               ),
             ),
@@ -42,7 +49,7 @@ class AccountScreen extends StatelessWidget {
                 children: [
                  ProfilePicture(
                     name: name,
-                    radius: 40,
+                    radius: 45,
                     fontsize: 21,),
                 ],
               ),
@@ -65,7 +72,7 @@ class AccountScreen extends StatelessWidget {
               children: [ 
                 SizedBox(
                   width: 350,
-                  height: 400,
+                  height: 450,
                   child: Card(
                     elevation: 50,
                     shape: RoundedRectangleBorder(
@@ -75,38 +82,94 @@ class AccountScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: EdgeInsets.fromLTRB(15, 13, 13, 0),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('買い物代行', style :TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: 26,
                                     ),
                                     ),
                                 ],
                               ),
-                              Column(
+                              Spacer(),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 13, 13, 0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  return buildSwitch();
-                                ],
-                              )
+                                Icon(Icons.toggle_off_outlined,size:40,),
+                              ],
+                              ),
+                            ),
                                 ],
                               ),
-                        ),
-                        Column(
-                          children: [
-                            buildSwitch(),
-                          ],
                         ),
                             Row(
                               children: [
                                 Text('____________________________________________________'),
                               ],
                             ),
-                            
+                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text('日程　：　', style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,),
+                                  ),
+                                  Text('宛先　：　', style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(date, style: TextStyle(fontWeight: FontWeight.bold,
+                                  fontSize: 24,),),
+                                  Text(des_city, style: TextStyle(fontWeight: FontWeight.bold,
+                                  fontSize: 24,),),
+                                ],
+                              )
+                            ],
+                           ) ,
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text('頼める店　', style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,),
+                                    ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 300,
+                                  height: 200,
+                                  child: TextField(
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                    border: OutlineInputBorder(borderSide: BorderSide(width: 3, color: Colors.black) ),
+                                    labelText: req_shop,),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
                       ],
                     ),  
                   ),
