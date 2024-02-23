@@ -1,5 +1,6 @@
-import 'dart:io';
+// ignore_for_file: unused_import
 
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var currentIndex = 0;
+  bool switch_value = true; 
   static const _screens = [
     MapPage(),
     ChatPage(),
@@ -115,4 +117,18 @@ class _MyAppState extends State<MyApp> {
     Icons.chat_bubble_outline,
     Icons.account_circle_rounded,
   ];
+
+  Widget buildSwitch() =>Transform.scale(
+    scale: 2,
+    child: Switch.adaptive(
+      activeColor: Colors.blue,
+      activeTrackColor: Colors.blue,
+      inactiveThumbColor: Colors.grey,
+      inactiveTrackColor:Colors.grey,
+    value: switch_value, 
+    onChanged:  (bool newValue) {
+    setState(() {switch_value = newValue;}
+    );}
+    ),
+  );
 }
