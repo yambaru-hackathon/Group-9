@@ -9,9 +9,12 @@ import cloud_firestore
 import firebase_auth
 import firebase_core
 <<<<<<< HEAD
+<<<<<<< HEAD
 import url_launcher_macos
 =======
 >>>>>>> 8f4a09c (map_uiの実装)
+=======
+>>>>>>> d15e182 (map_uiの実装)
 import geolocator_apple
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
@@ -19,8 +22,11 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseAuthPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseAuthPlugin"))
   FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))
 <<<<<<< HEAD
+<<<<<<< HEAD
   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
 =======
 >>>>>>> 8f4a09c (map_uiの実装)
+=======
+>>>>>>> d15e182 (map_uiの実装)
   GeolocatorPlugin.register(with: registry.registrar(forPlugin: "GeolocatorPlugin"))
 }

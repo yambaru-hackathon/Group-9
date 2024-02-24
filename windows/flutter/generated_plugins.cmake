@@ -7,9 +7,12 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_auth
   firebase_core
 <<<<<<< HEAD
+<<<<<<< HEAD
   url_launcher_windows
 =======
 >>>>>>> 8f4a09c (map_uiの実装)
+=======
+>>>>>>> d15e182 (map_uiの実装)
   geolocator_windows
 )
 
