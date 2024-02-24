@@ -760,6 +760,5 @@ sdks:
 <<<<<<< HEAD
   flutter: ">=3.16.0"
 =======
-  flutter: ">=3.16.6"
-  flutter: ">=3.7.0"
+  flutter: ">=3.3.0"
 >>>>>>> 8f4a09c (map_uiの実装)
