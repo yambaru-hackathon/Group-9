@@ -222,6 +222,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+<<<<<<< HEAD
   flutter_parsed_text:
     dependency: transitive
     description:
@@ -230,6 +231,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+=======
+>>>>>>> 8f4a09c (map_uiの実装)
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -360,6 +363,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.15.4"
+<<<<<<< HEAD
   http:
     dependency: transitive
     description:
@@ -368,6 +372,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+=======
+>>>>>>> 8f4a09c (map_uiの実装)
   http_parser:
     dependency: transitive
     description:
@@ -392,6 +398,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
+<<<<<<< HEAD
   json_annotation:
     dependency: transitive
     description:
@@ -400,6 +407,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+=======
+>>>>>>> 8f4a09c (map_uiの実装)
   js_wrapping:
     dependency: transitive
     description:
@@ -637,6 +646,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
+<<<<<<< HEAD
   url_launcher:
     dependency: transitive
     description:
@@ -703,6 +713,10 @@ packages:
     version: "3.1.1"
   uuid:
     dependency: "direct main"
+=======
+  uuid:
+    dependency: transitive
+>>>>>>> 8f4a09c (map_uiの実装)
     description:
       name: uuid
       sha256: cd210a09f7c18cbe5a02511718e0334de6559871052c90a90c0cca46a4aa81c8
@@ -743,4 +757,9 @@ packages:
     version: "0.4.2"
 sdks:
   dart: ">=3.3.0 <4.0.0"
+<<<<<<< HEAD
   flutter: ">=3.16.0"
+=======
+  flutter: ">=3.16.6"
+  flutter: ">=3.7.0"
+>>>>>>> 8f4a09c (map_uiの実装)

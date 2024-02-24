@@ -6,7 +6,10 @@ list(APPEND FLUTTER_PLUGIN_LIST
   cloud_firestore
   firebase_auth
   firebase_core
+<<<<<<< HEAD
   url_launcher_windows
+=======
+>>>>>>> 8f4a09c (map_uiの実装)
   geolocator_windows
 )
 
