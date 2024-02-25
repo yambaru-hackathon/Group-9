@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   bool switch_value = true; 
   static const _screens = [
     MapPage(),
-    ChatPage(),
+    RoomListPage(),
     AccountScreen()
   ];
   @override
