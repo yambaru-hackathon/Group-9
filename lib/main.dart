@@ -1,14 +1,11 @@
-// ignore_for_file: unused_import
-
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:group_9_birumanchu/pages/account_page.dart';
 import 'package:group_9_birumanchu/pages/chat_page.dart';
 import 'package:group_9_birumanchu/pages/map_page.dart';
-import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:group_9_birumanchu/firebase_options.dart'; // firebase_options.dartのインポート
+import 'package:group_9_birumanchu/pages/room_list_page.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,10 +39,10 @@ class _MyAppState extends State<MyApp> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
-      body: Stack( // Stack ウィジェットでボトムナビゲーションバーをページの上に重ねる
+      body: Stack(
         children: [
           _screens[currentIndex],
-          Positioned( // ボトムナビゲーションバーの位置を指定
+          Positioned(
             bottom: 20,
             left: 20,
             right: 20,
