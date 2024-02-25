@@ -30,7 +30,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var currentIndex = 0;
-  bool switch_value = true; 
+  
   static const _screens = [
     MapPage(),
     ChatPage(),
@@ -118,17 +118,4 @@ class _MyAppState extends State<MyApp> {
     Icons.account_circle_rounded,
   ];
 
-  Widget buildSwitch() =>Transform.scale(
-    scale: 2,
-    child: Switch.adaptive(
-      activeColor: Colors.blue,
-      activeTrackColor: Colors.blue,
-      inactiveThumbColor: Colors.grey,
-      inactiveTrackColor:Colors.grey,
-    value: switch_value, 
-    onChanged:  (bool newValue) {
-    setState(() {switch_value = newValue;}
-    );}
-    ),
-  );
 }
