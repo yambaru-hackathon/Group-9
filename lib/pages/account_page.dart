@@ -167,8 +167,9 @@ class _SwitchExampleState extends State<SwitchExample> {
         setState(() {
           light = value; 
           Visibility(
-            visible: value,
+            visible: light,
             child: Post());// change the mode insert to firebase
+            print(light);
         },);
       },
     );
