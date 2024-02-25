@@ -27,7 +27,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var currentIndex = 0;
-  bool switch_value = true; 
+  
   static const _screens = [
     MapPage(),
     RoomListPage(),
