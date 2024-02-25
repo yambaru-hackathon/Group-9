@@ -17,9 +17,6 @@ void main() async {
     theme: ThemeData(
         useMaterial3: true,
     ),
-    theme: ThemeData(
-        useMaterial3: true,
-    ),
     home: MyApp(),
   ));
 }
