@@ -114,18 +114,4 @@ class _MyAppState extends State<MyApp> {
     Icons.chat_bubble_outline,
     Icons.account_circle_rounded,
   ];
-
-  Widget buildSwitch() =>Transform.scale(
-    scale: 2,
-    child: Switch.adaptive(
-      activeColor: Colors.blue,
-      activeTrackColor: Colors.blue,
-      inactiveThumbColor: Colors.grey,
-      inactiveTrackColor:Colors.grey,
-    value: switch_value, 
-    onChanged:  (bool newValue) {
-    setState(() {switch_value = newValue;}
-    );}
-    ),
-  );
 }
