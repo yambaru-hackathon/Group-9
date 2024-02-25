@@ -6,7 +6,7 @@ import 'package:group_9_birumanchu/pages/chat_page.dart';
 
 class RoomListPage extends StatelessWidget {
   // 引数からユーザー情報を受け取れるようにする
-  RoomListPage();
+  const RoomListPage();
 
   @override
   Widget build(BuildContext context) {
