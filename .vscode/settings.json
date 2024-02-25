@@ -1,3 +1,4 @@
 {
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "cmake.sourceDirectory": "C:/a/Group-9/build/windows/x64/extracted/firebase_cpp_sdk_windows"
 }
