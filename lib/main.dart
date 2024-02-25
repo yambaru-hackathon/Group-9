@@ -114,5 +114,4 @@ class _MyAppState extends State<MyApp> {
     Icons.chat_bubble_outline,
     Icons.account_circle_rounded,
   ];
-
 }
