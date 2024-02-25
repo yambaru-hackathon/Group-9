@@ -8,12 +8,16 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   url_launcher_windows
 =======
 >>>>>>> 8f4a09c (map_uiの実装)
 =======
 >>>>>>> d15e182 (map_uiの実装)
+=======
+>>>>>>> 6035435 (yaml修正)
   geolocator_windows
+  url_launcher_windows
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

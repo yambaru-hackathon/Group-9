@@ -407,6 +407,7 @@ packages:
     version: "0.6.7"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   json_annotation:
     dependency: transitive
     description:
@@ -419,6 +420,8 @@ packages:
 >>>>>>> 8f4a09c (map_uiの実装)
 =======
 >>>>>>> d15e182 (map_uiの実装)
+=======
+>>>>>>> 6035435 (yaml修正)
   js_wrapping:
     dependency: transitive
     description:
@@ -427,6 +430,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.8.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -785,6 +796,7 @@ sdks:
   dart: ">=3.3.0 <4.0.0"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   flutter: ">=3.16.0"
 =======
   flutter: ">=3.16.6"
@@ -792,3 +804,6 @@ sdks:
 =======
   flutter: ">=3.16.6"
 >>>>>>> d15e182 (map_uiの実装)
+=======
+  flutter: ">=3.16.6"
+>>>>>>> 6035435 (yaml修正)
