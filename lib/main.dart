@@ -14,9 +14,6 @@ void main() async {
   );
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      useMaterial3: true,
-    ),
     home: MyApp(),
   ));
 }
@@ -38,41 +35,37 @@ class _MyAppState extends State<MyApp> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
-      body: SafeArea(
-        child: Stack(
-          // Stack ウィジェットでボトムナビゲーションバーをページの上に重ねる
-          children: [
-            _screens[currentIndex],
-            Positioned(
-              // ボトムナビゲーションバーの位置を指定
-              bottom: 20,
-              left: 20,
-              right: 20,
-              child: Container(
-                height: size.width * .155,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 221, 221, 221),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(.15),
-                      blurRadius: 30,
-                      offset: Offset(0, 10),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    buildNavItem(Icons.map_rounded, size),
-                    buildNavItem(Icons.chat_bubble_outline, size),
-                    buildNavItem(Icons.account_circle_rounded, size),
-                  ],
-                ),
+      body: Stack( // Stack ウィジェットでボトムナビゲーションバーをページの上に重ねる
+        children: [
+          _screens[currentIndex],
+          Positioned( // ボトムナビゲーションバーの位置を指定
+            bottom: 20,
+            left: 20,
+            right: 20,
+            child: Container(
+              height: size.width * .155,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 221, 221, 221),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(.15),
+                    blurRadius: 30,
+                    offset: Offset(0, 10),
+                  )
+                ],
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  buildNavItem(Icons.map_rounded, size),
+                  buildNavItem(Icons.chat_bubble_outline, size),
+                  buildNavItem(Icons.account_circle_rounded, size),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
