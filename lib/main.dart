@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
   var currentIndex = 0;
 
   static const _screens = [MapPage(), RoomListPage(), AccountScreen(),];
+  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -40,43 +41,39 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       body: SafeArea(
-        child: SafeArea(
-        child: SafeArea(
         child: Stack(
           // Stack ウィジェットでボトムナビゲーションバーをページの上に重ねる
-              children: [
-                _screens[currentIndex],
-                Positioned(
+          children: [
+            _screens[currentIndex],
+            Positioned(
               // ボトムナビゲーションバーの位置を指定
-                  bottom: 20,
-                  left: 20,
-                  right: 20,
-                  child: Container(
-                    height: size.width * .155,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 221, 221, 221),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(.15),
-                          blurRadius: 30,
-                          offset: Offset(0, 10),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        buildNavItem(Icons.map_rounded, size),
-                        buildNavItem(Icons.chat_bubble_outline, size),
-                        buildNavItem(Icons.account_circle_rounded, size),
-                      ],
-                    ),
-                  ),
+              bottom: 20,
+              left: 20,
+              right: 20,
+              child: Container(
+                height: size.width * .155,
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 221, 221, 221),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(.15),
+                      blurRadius: 30,
+                      offset: Offset(0, 10),
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(50),
                 ),
-              ],
-        ),
-        ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    buildNavItem(Icons.map_rounded, size),
+                    buildNavItem(Icons.chat_bubble_outline, size),
+                    buildNavItem(Icons.account_circle_rounded, size),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

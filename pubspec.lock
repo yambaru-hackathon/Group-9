@@ -89,6 +89,16 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  equatable:
+    dependency: transitive
+  cupertino_icons:
+    dependency: "direct main"
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   diffutil_dart:
     dependency: transitive
     description:
@@ -605,6 +615,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
+  timeago:
+    dependency: "direct main"
+    description:
+      name: timeago
+      sha256: d3204eb4c788214883380253da7f23485320a58c11d145babc82ad16bf4e7764
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.1"
   typed_data:
     dependency: transitive
     description:
