@@ -12,61 +12,67 @@ class RoomListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('チャット'),
+        title: Text('依頼'),
+        actions: [ // アクションボタンを追加
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return AddRoomPage();
+                  },
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
           Expanded(
             // Stream 非同期処理の結果を元にWidgetを作る
             child: StreamBuilder<QuerySnapshot>(
-            // 投稿メッセージ一覧の取得
-            stream: FirebaseFirestore.instance
-                .collection('chat_room')
-                .orderBy('createdAt')
-                .snapshots(),
-            builder: (context, snapshot) {
-              // データが取得できた場合
-              if (snapshot.hasData) {
-                final List<DocumentSnapshot> documents = snapshot.data!.docs;
-                return ListView(
-                  children: documents.map((document) {
-                    return Card(
-                      child: ListTile(
-                        title: Text(document['name']),
-                        trailing: IconButton(
-                          icon: Icon(Icons.input),
-                          onPressed: () async {
-                            // チャットページへ画面遷移
-                            await Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return ChatPage(document['name']);
-                                },
-                              ),
-                            );
-                          },
+              // 投稿メッセージ一覧の取得
+              stream: FirebaseFirestore.instance
+                  .collection('chat_room')
+                  .orderBy('createdAt')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                // データが取得できた場合
+                if (snapshot.hasData) {
+                  final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                  return ListView(
+                    children: documents.map((document) {
+                      return Card(
+                        child: ListTile(
+                          title: Text(document['name']),
+                          trailing: IconButton(
+                            icon: Icon(Icons.input),
+                            onPressed: () async {
+                              // チャットページへ画面遷移
+                              await Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return ChatPage(document['name']);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    );
-                  }).toList(),
+                      );
+                    }).toList(),
+                  );
+                }
+                // データが読込中の場合
+                return Center(
+                  child: Text('読込中……'),
                 );
-              }
-              // データが読込中の場合
-              return Center(
-                child: Text('読込中……'),
-              );
-            },
-          )),
+              },
+            ),
+          ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () async {
-          await Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) {
-            return AddRoomPage();
-          }));
-        },
       ),
     );
   }
