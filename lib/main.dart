@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:group_9_birumanchu/pages/account_info_page.dart';
 import 'package:group_9_birumanchu/pages/account_page.dart';
 import 'package:group_9_birumanchu/pages/chat_page.dart';
 import 'package:group_9_birumanchu/pages/map_page.dart';
@@ -14,6 +15,9 @@ void main() async {
   );
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      useMaterial3: true,
+    ),
     home: MyApp(),
   ));
 }
@@ -28,17 +32,24 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var currentIndex = 0;
 
-  static const _screens = [MapPage(), RoomListPage(), AccountScreen()];
+  static const _screens = [
+    MapPage(),
+    RoomListPage(),
+    AccountScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
-      body: Stack( // Stack ウィジェットでボトムナビゲーションバーをページの上に重ねる
+      body: Stack(
+        // Stack ウィジェットでボトムナビゲーションバーをページの上に重ねる
         children: [
           _screens[currentIndex],
-          Positioned( // ボトムナビゲーションバーの位置を指定
+          Positioned(
+            // ボトムナビゲーションバーの位置を指定
             bottom: 20,
             left: 20,
             right: 20,
