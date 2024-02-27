@@ -109,6 +109,7 @@ class _PasswordChangeState extends State<PasswordChange> {
   }
 }
 
+// ignore: must_be_immutable
 class ShowErrorMsg extends StatelessWidget {
   String content;
  
@@ -130,6 +131,7 @@ class ShowErrorMsg extends StatelessWidget {
             );
   }
 }
+// ignore: must_be_immutable
 class ShowMsg extends StatelessWidget { 
 String content;
    ShowMsg({Key?key, required this.content});
