@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:group_9_birumanchu/pages/account_page.dart';
 import 'package:group_9_birumanchu/pages/password_change_Widget.dart';
 import 'package:group_9_birumanchu/pages/userInfochange.dart';
 import 'package:responsive_framework/responsive_framework.dart';
