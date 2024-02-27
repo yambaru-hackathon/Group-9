@@ -2,18 +2,30 @@
 
 import 'package:flutter/material.dart';
 import 'package:group_9_birumanchu/pages/account_page.dart';
+import 'package:group_9_birumanchu/pages/password_change_Widget.dart';
+import 'package:group_9_birumanchu/pages/userInfochange.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 String name = 'Dee',
     email = 'dee224@gmail.com',
     ph_number = '08061558698',
     password = 'dee224gmail';
 
-class Accountinfo extends StatelessWidget {
+class Accountinfo extends StatefulWidget {
   const Accountinfo({Key? key}) : super(key: key);
 
   @override
+  State<Accountinfo> createState() => _AccountinfoState();
+}
+
+class _AccountinfoState extends State<Accountinfo> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ResponsiveBreakpoints(
+      breakpoints: [
+        Breakpoint(start: 0, end: 480, name: MOBILE),
+      ],
+      child:Scaffold(
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,7 +66,16 @@ class Accountinfo extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      forwardChangeInfo(), //have to change
+                      IconButton(
+                            icon: Icon(Icons.arrow_forward_ios_outlined),
+                            onPressed: () {
+                              showDialog(context: context, barrierDismissible: false, builder: (BuildContext context){
+                                return InformationChange();
+                              },
+                              );
+
+                            },
+                          ), 
                     ],
                   ),
                 ],
@@ -104,7 +125,16 @@ class Accountinfo extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        forwardChangeInfo(), //have to change
+                       IconButton(
+                            icon: Icon(Icons.arrow_forward_ios_outlined),
+                            onPressed: () {
+                              showDialog(context: context, barrierDismissible: false, builder: (BuildContext context){
+                                return PasswordChange();
+                              },
+                              );
+
+                            },
+                          ), 
                       ],
                     ),
                   ),
@@ -117,6 +147,7 @@ class Accountinfo extends StatelessWidget {
           ],
         ),
       ),
+    ),
     );
   }
 }
