@@ -16,7 +16,7 @@ void main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-        useMaterial3: true,
+      useMaterial3: true,
     ),
     home: MyApp(),
   ));
@@ -32,8 +32,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var currentIndex = 0;
 
-  static const _screens = [MapPage(), RoomListPage(), AccountScreen(),];
-  
+  static const _screens = [
+    MapPage(),
+    RoomListPage(),
+    AccountScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
