@@ -58,6 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(context,
                         MaterialPageRoute(builder: ((context) => MyApp())));
                         }).onError((error, stackTrace) {
+                          popUp("Error ${error.toString()}");
                           print("Error ${error.toString()}");
                         });
                   }),

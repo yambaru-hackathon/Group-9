@@ -19,7 +19,7 @@ void main() async {
     theme: ThemeData(
       useMaterial3: true,
     ),
-    home: MyApp(),//LoginPage(),
+    home: LoginPage(), //MyApp(),
   ));
 }
 

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:group_9_birumanchu/Reusable%20Widget/reusable_widget.dart';
@@ -71,37 +72,38 @@ class _SignupState extends State<Signup> {
                 reusableTextField('パスワード入力', Icons.lock_outline, true,
                     _passwordTextController),
                 const SizedBox(
+                  height: 20,
+                ),
+                reusableTextField('パスワード確認', Icons.lock_outline, true,
+                    _confirmPwdTextController),
+                const SizedBox(
                   height: 30,
                 ),
                 signInsignUpButton(context, false, () {
-                  FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
-                    Fluttertoast.showToast(
-                        msg: "登録完了しました。",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-                        print("Account created");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                  }).onError((error, stackTrace) {
-                    Fluttertoast.showToast(
-                        msg: "Error ${error.toString()}",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-                        print("Account created");
-                    print("Error ${error.toString()}");
-                  });
+                  if (passwordConfirm(_passwordTextController.text,
+                      _confirmPwdTextController.text)) {
+                    //create user with Authentication
+                    FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text)
+                        .then((value) {
+                      popUp("登録完了しました。");
+                      print("Account created");
+                      addUserDetails(
+                          _userTextController.text,
+                          _emailTextController.text,
+                          _phNumberTextController.text,
+                          _passwordTextController.text);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
+                    }).onError((error, stackTrace) {
+                      popUp("Error ${error.toString()}");
+                      print("Error ${error.toString()}");
+                    });
+                  } else {
+                    popUp("もう一回確認しください。");
+                  }
                 })
               ],
             ),
@@ -109,5 +111,15 @@ class _SignupState extends State<Signup> {
         ),
       ),
     );
+  }
+
+  Future addUserDetails(
+      String username, String mail, String phNum, String passwd) async {
+    await FirebaseFirestore.instance.collection("users").add({
+      "name": username,
+      "email": mail,
+      "phoneNumber": phNum,
+      "password": passwd,
+    });
   }
 }

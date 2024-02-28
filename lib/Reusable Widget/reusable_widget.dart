@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 logoWidget(String imageName) {
   return Image.asset(
@@ -51,7 +52,7 @@ Container signInsignUpButton(
       onPressed: () {
         onTap();
       },
-      child: Text(isLogin ? 'ログイン' : '登録',
+      child: Text(isLogin ? 'ログイン' : '同意して新規作成',
           style: const TextStyle(
             color: Colors.black87,
             fontWeight: FontWeight.bold,
@@ -69,4 +70,21 @@ Container signInsignUpButton(
       ),
     ),
   );
+}
+bool passwordConfirm (String pwd, String confirmpwd){
+  if(pwd == confirmpwd)
+    return true;
+  else 
+    return false;
+}
+
+Future<bool?> popUp (String content){
+  return Fluttertoast.showToast(
+                        msg: content,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
 }
