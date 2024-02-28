@@ -16,7 +16,13 @@ class FormPage extends StatelessWidget {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text("店名"),
+                // Text(
+                //   "店名",
+                //   style: TextStyle(
+                //     fontSize: 25
+                //   ),
+                // ),
+                SizedBox(height: 10,),
                 SizedBox(
                   width: double.infinity,
                   child: Container(
@@ -25,6 +31,8 @@ class FormPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0), // 角を丸くする
                     ),
                     child: TextField(
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
                       decoration: const InputDecoration(
                         labelText: "店名",
                         contentPadding: EdgeInsets.all(10.0),
@@ -34,7 +42,13 @@ class FormPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Text("買うものリスト"),
+                // Text(
+                //   "買うものリスト",
+                //   style: TextStyle(
+                //     fontSize: 25
+                //   ),
+                // ),
+                SizedBox(height: 10,),
                 SizedBox(
                   width: double.infinity,
                   height: 200,
@@ -44,16 +58,46 @@ class FormPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0), // 角を丸くする
                     ),
                     child: TextField(
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
                       decoration: const InputDecoration(
                         labelText: "買うものリスト",
                         contentPadding: EdgeInsets.all(10.0),
                         border: InputBorder.none,
                       ),
-                      obscureText: true,
+                      // obscureText: true,
                     ),
                   ),
                 ),
                 const SizedBox(height: 10),
+                // Text(
+                //   "配送先",
+                //   style: TextStyle(
+                //     fontSize: 25
+                //   ),
+                // ),
+                SizedBox(height: 10,),
+                SizedBox(
+                  width: double.infinity,
+                  height: 100,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(10.0), // 角を丸くする
+                    ),
+                    child: TextField(
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                      labelText: "配送先",
+                        contentPadding: EdgeInsets.all(10.0),
+                        border: InputBorder.none,
+                      ),
+                      // obscureText: true,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
