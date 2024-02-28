@@ -1,6 +1,6 @@
 //Password and User Information Change FILE
 import 'package:flutter/material.dart';
-import 'package:group_9_birumanchu/pages/account_info_page.dart';
+import 'package:group_9_birumanchu/pages/Usersetting/account_info_page.dart';
 
 bool _isvisible1 = true, _isvisible_2 = true;
 String changepwd = '', confirmpwd = '';
@@ -109,6 +109,7 @@ class _PasswordChangeState extends State<PasswordChange> {
   }
 }
 
+// ignore: must_be_immutable
 class ShowErrorMsg extends StatelessWidget {
   String content;
  
@@ -130,6 +131,7 @@ class ShowErrorMsg extends StatelessWidget {
             );
   }
 }
+// ignore: must_be_immutable
 class ShowMsg extends StatelessWidget { 
 String content;
    ShowMsg({Key?key, required this.content});
