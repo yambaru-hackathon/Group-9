@@ -2,23 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: unused_import
 import 'package:flutter/foundation.dart';
 
-class User{
+class UserModel{
+  final String? id;
   final String name;
-  final String ph_num;
   final String email;
+  final String ph_Num;
   final String password;
 
-  User({
+  UserModel({
+    this.id,
     required this.name, 
-    required this.ph_num, 
+    required this.ph_Num, 
     required this.email, 
     required this.password});
 
-  factory User.FromFirestore(DocumentSnapshot doc){
-    final data = doc.data() as Map<String, dynamic>;
-    return User(
+  factory UserModel.FromFirestore(DocumentSnapshot <Map<String, dynamic>> document){
+    var data = document.data()!;
+    return UserModel(
+      id: document.id,
       name: data['name'], 
-      ph_num: data['ph_num'],
+      ph_Num: data['phoneNumber'],
        email: data['email'], 
        password: data['password']);
   }
