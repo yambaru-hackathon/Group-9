@@ -5,7 +5,6 @@ import 'package:group_9_birumanchu/pages/add_room_page.dart';
 import 'package:group_9_birumanchu/pages/chat_page.dart';
 
 class RoomListPage extends StatelessWidget {
-  // 引数からユーザー情報を受け取れるようにする
   const RoomListPage();
 
   @override
@@ -13,7 +12,7 @@ class RoomListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('依頼'),
-        actions: [ // アクションボタンを追加
+        actions: [
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () async {
@@ -31,41 +30,45 @@ class RoomListPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            // Stream 非同期処理の結果を元にWidgetを作る
             child: StreamBuilder<QuerySnapshot>(
-              // 投稿メッセージ一覧の取得
               stream: FirebaseFirestore.instance
                   .collection('chat_room')
                   .orderBy('createdAt')
                   .snapshots(),
               builder: (context, snapshot) {
-                // データが取得できた場合
                 if (snapshot.hasData) {
                   final List<DocumentSnapshot> documents = snapshot.data!.docs;
-                  return ListView(
-                    children: documents.map((document) {
+                  return ListView.builder(
+                    itemCount: documents.length,
+                    itemBuilder: (context, index) {
+                      final document = documents[index];
                       return Card(
                         child: ListTile(
                           title: Text(document['name']),
                           trailing: IconButton(
-                            icon: Icon(Icons.input),
+                            icon: Icon(Icons.delete),
                             onPressed: () async {
-                              // チャットページへ画面遷移
-                              await Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return ChatPage(document['name']);
-                                  },
-                                ),
-                              );
+                              // アイテムを削除
+                              await FirebaseFirestore.instance
+                                  .collection('chat_room')
+                                  .doc(document.id)
+                                  .delete();
                             },
                           ),
+                          onTap: () async {
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ChatPage(document['name']);
+                                },
+                              ),
+                            );
+                          },
                         ),
                       );
-                    }).toList(),
+                    },
                   );
                 }
-                // データが読込中の場合
                 return Center(
                   child: Text('読込中……'),
                 );
