@@ -8,7 +8,7 @@ class FormPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("依頼form"),
-        centerTitle: true, // タイトルを中央ぞろえにする
+        centerTitle: true, 
       ),
       body: Center(
         child: Padding(
@@ -22,7 +22,7 @@ class FormPage extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(10.0), // 角を丸くする
+                    borderRadius: BorderRadius.circular(10.0), 
                   ),
                   child: TextField(
                     decoration: const InputDecoration(
