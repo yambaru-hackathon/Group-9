@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:group_9_birumanchu/pages/account_page.dart';
-import 'package:group_9_birumanchu/pages/password_change_Widget.dart';
-import 'package:group_9_birumanchu/pages/userInfochange.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:group_9_birumanchu/pages/Login_SignUp/login.dart';
+import 'package:group_9_birumanchu/pages/Usersetting/password_change_Widget.dart';
+import 'package:group_9_birumanchu/pages/Usersetting/userInfochange.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 String name = 'Dee',
@@ -144,6 +146,26 @@ class _AccountinfoState extends State<Accountinfo> {
             passwordInfo(
               password_content: password,
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [ElevatedButton(onPressed: (){
+                FirebaseAuth.instance.signOut().then((value) => {
+                   Fluttertoast.showToast(
+                        msg: "登録完了しました。",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Color.fromARGB(255, 253, 63, 49),
+                        textColor: Colors.white,
+                        fontSize: 16.0),
+                        print("Sign Out"),
+                });
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+              }, child: Text('ログアウト'))],
+            )
           ],
         ),
       ),

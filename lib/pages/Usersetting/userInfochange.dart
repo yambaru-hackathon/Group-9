@@ -1,7 +1,7 @@
 //Password and User Information Change FILE
 import 'package:flutter/material.dart';
-import 'package:group_9_birumanchu/pages/account_info_page.dart';
-import 'package:group_9_birumanchu/pages/password_change_Widget.dart';
+import 'package:group_9_birumanchu/pages/Usersetting/account_info_page.dart';
+import 'package:group_9_birumanchu/pages/Usersetting/password_change_Widget.dart';
 
 bool _isvisible1 = true, _isvisible_2 = true;
 String changeName = '', changeEmail = '', changePh_num = '';

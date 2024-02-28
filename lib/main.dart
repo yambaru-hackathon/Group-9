@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:group_9_birumanchu/pages/account_info_page.dart';
-import 'package:group_9_birumanchu/pages/account_page.dart';
+import 'package:group_9_birumanchu/pages/Login_SignUp/login.dart';
+import 'package:group_9_birumanchu/pages/Usersetting/account_info_page.dart';
+import 'package:group_9_birumanchu/pages/Usersetting/account_page.dart';
 import 'package:group_9_birumanchu/pages/chat_page.dart';
 import 'package:group_9_birumanchu/pages/map_page.dart';
 import 'package:group_9_birumanchu/firebase_options.dart'; // firebase_options.dartのインポート
@@ -18,7 +19,7 @@ void main() async {
     theme: ThemeData(
       useMaterial3: true,
     ),
-    home: MyApp(),
+    home: MyApp(),//LoginPage(),
   ));
 }
 
