@@ -205,6 +205,37 @@ class _SignupState extends State<Signup> {
                 const SizedBox(
                   height: 30,
                 ),
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                signInsignUpButton(context, false, () {
+                  if (passwordConfirm(_passwordTextController.text,
+                      _confirmPwdTextController.text)) {
+                    //create user with Authentication
+                    FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text)
+                        .then((value) {
+                      popUp("登録完了しました。");
+                      print("Account created");
+                      addUserDetails(
+                          _userTextController.text,
+                          _emailTextController.text,
+                          _phNumberTextController.text,
+                          _passwordTextController.text);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
+                    }).onError((error, stackTrace) {
+                      popUp("Error ${error.toString()}");
+                      print("Error ${error.toString()}");
+                    });
+                  } else {
+                    popUp("もう一回確認しください。");
+                  }
+                })
+=======
+>>>>>>> 4ea4580 (ボタン修正)
                 signInsignUpButton(context, false, () async {
                   if (_passwordTextController.text == _confirmPwdTextController.text) {
                       // Passwords match, proceed with authentication
@@ -219,6 +250,10 @@ class _SignupState extends State<Signup> {
                     }
                   },
                 )
+<<<<<<< HEAD
+=======
+>>>>>>> b9de677 (ボタン修正)
+>>>>>>> 4ea4580 (ボタン修正)
               ],
             ),
           ),
