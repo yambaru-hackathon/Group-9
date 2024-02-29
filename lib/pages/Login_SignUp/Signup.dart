@@ -205,22 +205,6 @@ class _SignupState extends State<Signup> {
                 const SizedBox(
                   height: 30,
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_passwordTextController.text == _confirmPwdTextController.text) {
-                      // Passwords match, proceed with authentication
-                      try {
-                        await createAuth();
-                      } catch (error) {
-                        popUp("Error ${error.toString()}");
-                        print("Error ${error.toString()}");
-                      }
-                    } else {
-                      popUp("パスワードをもう一度確認してください。");
-                    }
-                  },
-                  child: Text("ユーザー登録"),
-                ),
                 signInsignUpButton(context, false, () async {
                   if (_passwordTextController.text == _confirmPwdTextController.text) {
                       // Passwords match, proceed with authentication
