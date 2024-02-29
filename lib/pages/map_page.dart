@@ -7,7 +7,31 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:group_9_birumanchu/pages/shopping_form.dart';
-import 'package:group_9_birumanchu/service/userDatabase.dart';
+
+class UserService {
+  final CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+
+  Future<User?> getCurrentUser() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return user;
+    } else {
+      // ユーザーがログインしていない場合はnullを返す
+      return null;
+    }
+  }
+
+  Future<DocumentSnapshot?> getUserData(String userId) async {
+    try {
+      // ユーザーのUIDを使用してFirestoreからユーザー情報を取得
+      return await usersCollection.doc(userId).get();
+    } catch (e) {
+      print('Error fetching user data: $e');
+      return null;
+    }
+  }
+}
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -19,6 +43,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   StreamSubscription? _storeLocationSubscription;
   late String? _userId;
+  final UserService _userService = UserService();
 
   String? getCurrentUserUid() {
     final user = FirebaseAuth.instance.currentUser;
@@ -35,7 +60,6 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-    // _userId = _generateRandomUserId();
     _fetchMarkersStream();
     _subscribeToLocationChanges();
     super.initState();
@@ -43,10 +67,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<void> _initializeUserId() async {
-    final userId = getCurrentUserUid();
-    setState(() {
-      _userId = userId;
-    });
+    _userId = await getCurrentUserUid();
   }
 
   @override
@@ -92,62 +113,87 @@ class _MapPageState extends State<MapPage> {
       markerId: MarkerId(user),
       position: LatLng(latitude, longitude),
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(children: [
-                  Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '$user',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                ]),
-                SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  '時間',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 10),
-                const Text(
-                  '宛先',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 10),
-                const Text(
-                  '頼めるお店',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 20),
-                Center(
-                  // ボタンを中央に配置
-                  child: ElevatedButton(
-                    child: const Text('依頼する'),
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => FormPage())),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+        _showUserInfoDialog(user);
       },
     );
+  }
+
+  Future<void> _showUserInfoDialog(String user) async {
+    final userData = await _userService.getUserData(user); // userIdを引数として渡す
+
+    if (userData != null && userData.exists) {
+      final userName = userData['name']; // ユーザー名を取得
+      final uid =userData['uid'];
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(children: [
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '$userName',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ]),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  const Text(
+                    '時間',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(height: 10),
+                  const Text(
+                    '宛先',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(height: 10),
+                  const Text(
+                    '頼めるお店',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(height: 20),
+                  Center(
+                    // ボタンを中央に配置
+                    child: ElevatedButton(
+                      child: const Text('依頼する'),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FormPage(uid: uid)))
+                    ),
+                  ),
+                ],
+              ),
+            ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to fetch user data.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   Future<CameraPosition> _initCurrentLocation() async {
