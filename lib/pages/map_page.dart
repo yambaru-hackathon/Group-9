@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:group_9_birumanchu/pages/shopping_form.dart';
+import 'package:group_9_birumanchu/service/userDatabase.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -16,25 +18,41 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   StreamSubscription? _storeLocationSubscription;
-  late String _userId;
+  late String? _userId;
+
+  String? getCurrentUserUid() {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      // ユーザーがログインしている場合、UIDを取得して返します
+      return user.uid;
+    } else {
+      // ユーザーがログインしていない場合の処理
+      print('User is not logged in.');
+      return null; // もしくは別の適切な値を返します
+    }
+  }
 
   @override
   void initState() {
-    _userId = _generateRandomUserId();
+    // _userId = _generateRandomUserId();
     _fetchMarkersStream();
     _subscribeToLocationChanges();
     super.initState();
+    _initializeUserId();
+  }
+
+  Future<void> _initializeUserId() async {
+    final userId = getCurrentUserUid();
+    setState(() {
+      _userId = userId;
+    });
   }
 
   @override
   void dispose() {
     _storeLocationSubscription?.cancel();
     super.dispose();
-  }
-
-  String _generateRandomUserId() {
-    final random = Random();
-    return 'user_${random.nextInt(10000)}';
   }
 
   /// store current location information when location changed
@@ -151,33 +169,34 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 90),
-        child: Container(
-          color: Colors.grey,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: FutureBuilder<CameraPosition>(
-              future: _initCurrentLocation(),
-              builder: (BuildContext context,
-                      AsyncSnapshot<CameraPosition> cameraPosition) =>
-                  StreamBuilder(
-                stream: _fetchMarkersStream(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<Set<Marker>> markers) =>
-                        cameraPosition.connectionState == ConnectionState.waiting ||
-                                markers.connectionState == ConnectionState.waiting
-                            ? const Center(child: CircularProgressIndicator())
-                            : GoogleMap(
-                                initialCameraPosition: cameraPosition.data!,
-                                myLocationEnabled: true,
-                                myLocationButtonEnabled: true,
-                                markers: markers.data!,
-                              ),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 90),
+          child: Container(
+            color: Colors.grey,
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: FutureBuilder<CameraPosition>(
+                future: _initCurrentLocation(),
+                builder: (BuildContext context,
+                        AsyncSnapshot<CameraPosition> cameraPosition) =>
+                    StreamBuilder(
+                  stream: _fetchMarkersStream(),
+                  builder: (BuildContext context,
+                          AsyncSnapshot<Set<Marker>> markers) =>
+                      cameraPosition.connectionState ==
+                                  ConnectionState.waiting ||
+                              markers.connectionState == ConnectionState.waiting
+                          ? const Center(child: CircularProgressIndicator())
+                          : GoogleMap(
+                              initialCameraPosition: cameraPosition.data!,
+                              myLocationEnabled: true,
+                              myLocationButtonEnabled: true,
+                              markers: markers.data!,
+                            ),
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
 }
