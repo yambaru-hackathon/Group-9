@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     setState(() {
       uid = user!.uid;
-      displayName = user!.uid;
+      displayName = user!.displayName!;
     });
     print (displayName);
     print(uid);

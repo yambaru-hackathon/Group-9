@@ -47,7 +47,7 @@ class AccountScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      name,
+                      displayName,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
