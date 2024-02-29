@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
+import 'package:group_9_birumanchu/main.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/account_info_page.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_card/responsive_card.dart';
