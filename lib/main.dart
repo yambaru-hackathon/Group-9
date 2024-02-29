@@ -8,6 +8,7 @@ import 'package:group_9_birumanchu/firebase_options.dart'; // firebase_options.d
 import 'package:group_9_birumanchu/pages/room_list_page.dart';
 import 'package:provider/provider.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
