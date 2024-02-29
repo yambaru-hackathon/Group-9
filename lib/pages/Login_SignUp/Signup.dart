@@ -210,7 +210,11 @@ class _SignupState extends State<Signup> {
 =======
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 >>>>>>> 4ea4580 (ボタン修正)
+=======
+>>>>>>> 4ea45807b16709170ee1a1c1052f5f6859f19e50
+>>>>>>> ffc90647f059575acc6c3dc661a9aa51384155fe
                 signInsignUpButton(context, false, () {
                   if (passwordConfirm(_passwordTextController.text,
                       _confirmPwdTextController.text)) {
@@ -241,7 +245,11 @@ class _SignupState extends State<Signup> {
 <<<<<<< HEAD
 >>>>>>> 4ea4580 (ボタン修正)
 =======
+<<<<<<< HEAD
 >>>>>>> 4ea4580 (ボタン修正)
+=======
+>>>>>>> 4ea45807b16709170ee1a1c1052f5f6859f19e50
+>>>>>>> ffc90647f059575acc6c3dc661a9aa51384155fe
                 signInsignUpButton(context, false, () async {
                   if (_passwordTextController.text == _confirmPwdTextController.text) {
                       // Passwords match, proceed with authentication
@@ -263,7 +271,11 @@ class _SignupState extends State<Signup> {
 >>>>>>> 4ea4580 (ボタン修正)
 =======
 >>>>>>> b9de677 (ボタン修正)
+<<<<<<< HEAD
 >>>>>>> 4ea4580 (ボタン修正)
+=======
+>>>>>>> 4ea45807b16709170ee1a1c1052f5f6859f19e50
+>>>>>>> ffc90647f059575acc6c3dc661a9aa51384155fe
               ],
             ),
           ),
