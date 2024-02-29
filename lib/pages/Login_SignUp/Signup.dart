@@ -209,6 +209,7 @@ class _SignupState extends State<Signup> {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -252,6 +253,9 @@ class _SignupState extends State<Signup> {
 =======
                 
 >>>>>>> 8da0c46 (conflict resolve)
+=======
+                
+>>>>>>> 8da0c4671413ad4e1caf111d4cea8703d2fd9344
                 signInsignUpButton(context, false, () async {
                   if (_passwordTextController.text == _confirmPwdTextController.text) {
                       // Passwords match, proceed with authentication
@@ -270,6 +274,7 @@ class _SignupState extends State<Signup> {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b9de677 (ボタン修正)
 >>>>>>> 4ea4580 (ボタン修正)
@@ -281,6 +286,8 @@ class _SignupState extends State<Signup> {
 >>>>>>> 4ea4580 (ボタン修正)
 =======
 >>>>>>> 8da0c46 (conflict resolve)
+=======
+>>>>>>> 8da0c4671413ad4e1caf111d4cea8703d2fd9344
               ],
             ),
           ),
