@@ -88,3 +88,38 @@ Future<bool?> popUp (String content){
                         textColor: Colors.white,
                         fontSize: 16.0);
 }
+
+Widget formConstantText(String content){
+  return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+      child: Row(
+        children: [
+          Text(
+            content,
+            style: TextStyle(
+              color: Colors.grey.shade500,
+              fontSize: 16,
+              fontWeight: FontWeight.w300,
+            ),
+          )
+        ],
+      ),
+    );
+}
+
+Widget FormOutputValue (String output){
+  return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 3, 10, 0),
+      child: Row(
+        children: [
+          Text(
+            output,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+            ),
+          )
+        ],
+      ),
+    );
+}
