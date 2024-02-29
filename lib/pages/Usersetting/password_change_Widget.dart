@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/account_info_page.dart';
 
 bool _isvisible1 = true, _isvisible_2 = true;
-String changepwd = '', confirmpwd = '';
 
+String password='';
 //Password Change Class
 class PasswordChange extends StatefulWidget {
-  const PasswordChange({Key? key}) : super(key: key);
+  var pwd;
+
+  PasswordChange({Key? key, required this.pwd});
 
   @override
   State<PasswordChange> createState() => _PasswordChangeState();
@@ -15,7 +17,8 @@ class PasswordChange extends StatefulWidget {
 
 class _PasswordChangeState extends State<PasswordChange> {
   late TextEditingController _controller;
-
+  
+ late String changepwd, confirmpwd;
   @override
   void initState() {
     super.initState();

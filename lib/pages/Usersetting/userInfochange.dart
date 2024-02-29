@@ -17,7 +17,7 @@ class InformationChange extends StatefulWidget {
 
 class _InformationChange extends State<InformationChange> {
   late TextEditingController _controller;
-
+  late String name, email, ph_number;
   @override
   void initState() {
     super.initState();

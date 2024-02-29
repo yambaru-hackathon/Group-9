@@ -235,6 +235,7 @@ class _SignupState extends State<Signup> {
         password: _passwordTextController.text,
       );
       final user = result.user;
+      await user?.updateDisplayName(_userTextController.text);
       final uuid = user?.uid;
       await FirebaseFirestore.instance.collection('users').doc(uuid).set({
         'uid': uuid,
