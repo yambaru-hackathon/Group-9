@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:group_9_birumanchu/pages/Login_SignUp/login.dart';
@@ -8,6 +9,8 @@ import 'package:group_9_birumanchu/pages/map_page.dart';
 import 'package:group_9_birumanchu/firebase_options.dart'; // firebase_options.dartのインポート
 import 'package:group_9_birumanchu/pages/room_list_page.dart';
 import 'package:provider/provider.dart';
+
+String uid='', displayName = '';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +33,7 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+
 class _MyAppState extends State<MyApp> {
   var currentIndex = 0;
 
@@ -39,6 +43,16 @@ class _MyAppState extends State<MyApp> {
     AccountScreen(),
   ];
 
+@override
+  void initState() {
+    setState(() {
+      uid = user!.uid;
+      displayName = user!.uid;
+    });
+    print (displayName);
+    print(uid);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

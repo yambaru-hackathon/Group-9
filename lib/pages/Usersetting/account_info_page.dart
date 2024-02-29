@@ -1,17 +1,12 @@
-// ignore_for_file: must_be_immutable
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:group_9_birumanchu/Reusable%20Widget/reusable_widget.dart';
+import 'package:group_9_birumanchu/main.dart';
 import 'package:group_9_birumanchu/pages/Login_SignUp/login.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/password_change_Widget.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/userInfochange.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
-String name = 'Dee',
-    email = 'dee224@gmail.com',
-    ph_number = '08061558698',
-    password = 'dee224gmail';
 
 class Accountinfo extends StatefulWidget {
   const Accountinfo({Key? key}) : super(key: key);
@@ -21,155 +16,151 @@ class Accountinfo extends StatefulWidget {
 }
 
 class _AccountinfoState extends State<Accountinfo> {
+
+var ds; late String name,email,ph_number,password;
+
+  @override
+  void initState() {
+    print (uid);
+    _fetch(uid);
+    super.initState();
+  }
+
+  _fetch(String id) async{
+   await FirebaseFirestore.instance.collection('users').doc(id).get().then((DocumentSnapshot ds) => {
+    email = ds.get('email'),
+    name = ds.get('name'),
+    password = ds.get('password'),
+    ph_number = ds.get('phoneNumber')
+  });
+}
+
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBreakpoints(
-      breakpoints: [
-        Breakpoint(start: 0, end: 480, name: MOBILE),
-      ],
-      child:Scaffold(
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              color: Colors.grey.shade400,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 18, 10, 18),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.arrow_back_ios_new_sharp),
-                      onPressed: () {
-                        // Navigate back to the first screen by popping the current route
-                        // off the stack.
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                children: [
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
+        elevation: 0,
+        title: Icon(Icons.arrow_back_ios_new_outlined),
+      ),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                0, MediaQuery.of(context).size.height * 0.08, 3, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
                     children: [
-                      Text(
-                        'ユーザ情報',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w300),
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'ユーザ情報',
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w300),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          IconButton(
+                                icon: Icon(Icons.edit_outlined),
+                                onPressed: () {
+                                  showDialog(context: context, barrierDismissible: false, builder: (BuildContext context){
+                                    return InformationChange();
+                                  },
+                                  );
+            
+                                },
+                              ), 
+                        ],
                       ),
                     ],
                   ),
-                  Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      IconButton(
-                            icon: Icon(Icons.arrow_forward_ios_outlined),
-                            onPressed: () {
-                              showDialog(context: context, barrierDismissible: false, builder: (BuildContext context){
-                                return InformationChange();
-                              },
-                              );
-
-                            },
-                          ), 
-                    ],
+                ),
+                formConstantText('氏名'),
+                FormOutputValue( name),
+                 SizedBox(
+                    height: 20,
                   ),
-                ],
-              ),
-            ),
-            const Divider(
-              color: Colors.black,
-              thickness: 2,
-            ),
-            formConstantText(
-              content: '氏名',
-            ),
-            formInputValue(
-              content: name,
-            ),
-            formConstantText(content: 'メールアドレス'),
-            formInputValue(
-              content: email,
-            ),
-            formConstantText(content: '電話番号'),
-            formInputValue(
-              content: ph_number,
-            ),
-            const Divider(
-              color: Colors.black,
-              thickness: 2,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 8),
-              child: Row(
-                children: [
-                  Column(
+                formConstantText('メールアドレス'),
+                FormOutputValue(email),
+                 SizedBox(
+                    height: 20,
+                  ),
+                formConstantText('電話番号'),
+                FormOutputValue(ph_number),
+                 SizedBox(
+                    height: 20,
+                  ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 8),
+                  child: Row(
                     children: [
-                      Text(
-                        'パスワード',
-                        style: TextStyle(
-                          color: Colors.grey.shade500,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w300,
+                      Column(
+                        children: [
+                          Text(
+                            'パスワード',
+                            style: TextStyle(
+                              color: Colors.grey.shade500,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                           IconButton(
+                                icon: Icon(Icons.edit_outlined),
+                                onPressed: () {
+                                  showDialog(context: context, barrierDismissible: false, builder: (BuildContext context){
+                                    return PasswordChange(pwd: password,);
+                                  },
+                                  );
+            
+                                },
+                              ), 
+                          ],
                         ),
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                       IconButton(
-                            icon: Icon(Icons.arrow_forward_ios_outlined),
-                            onPressed: () {
-                              showDialog(context: context, barrierDismissible: false, builder: (BuildContext context){
-                                return PasswordChange();
-                              },
-                              );
-
-                            },
-                          ), 
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                passwordInfo(
+                  password_content: password,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [ElevatedButton(onPressed: (){
+                    FirebaseAuth.instance.signOut().then((value) => {
+                      popUp("ログアウトしました。"),                     
+                            print("Sign Out"),
+                    });
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+                  }, child: Text('ログアウト', style: TextStyle(fontSize: 24, fontWeight: FontWeight.normal),))],
+                ),
+              ],
             ),
-            passwordInfo(
-              password_content: password,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [ElevatedButton(onPressed: (){
-                FirebaseAuth.instance.signOut().then((value) => {
-                   Fluttertoast.showToast(
-                        msg: "登録完了しました。",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Color.fromARGB(255, 253, 63, 49),
-                        textColor: Colors.white,
-                        fontSize: 16.0),
-                        print("Sign Out"),
-                });
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
-              }, child: Text('ログアウト'))],
-            )
-          ],
+          ),
         ),
       ),
-    ),
     );
   }
 }
@@ -208,68 +199,4 @@ class _passwordInfoState extends State<passwordInfo> {
       ),
     );
   }
-}
-
-class formInputValue extends StatefulWidget {
-  var content;
-
-  formInputValue({Key? key, required this.content});
-
-  @override
-  State<formInputValue> createState() => _formInputValueState();
-}
-
-class _formInputValueState extends State<formInputValue> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-      child: Row(
-        children: [
-          Text(
-            widget.content,
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 24,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class formConstantText extends StatelessWidget {
-  var content;
-
-  formConstantText({Key? key, required this.content});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-      child: Row(
-        children: [
-          Text(
-            content,
-            style: TextStyle(
-              color: Colors.grey.shade500,
-              fontSize: 20,
-              fontWeight: FontWeight.w300,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-Widget forwardChangeInfo() {
-  return InkWell(
-    child: const Icon(Icons.arrow_forward_ios_outlined),
-    onTap: () {
-      //action code when clicked
-      print("The icon is clicked");
-    },
-  );
 }

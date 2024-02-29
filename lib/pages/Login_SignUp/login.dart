@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:group_9_birumanchu/Reusable%20Widget/reusable_widget.dart';
 import 'package:group_9_birumanchu/main.dart';
 import 'package:group_9_birumanchu/pages/Login_SignUp/Signup.dart';
+import 'package:group_9_birumanchu/pages/Login_SignUp/auth_service.dart';
 import 'package:group_9_birumanchu/utils/color_utils.dart';
 
+User? user;
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -13,6 +15,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final FirebaseAuthService _auth = FirebaseAuthService();
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   @override
@@ -34,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.fromLTRB(
-                  20, MediaQuery.of(context).size.height * 0.12, 20, 0),
+                  20, MediaQuery.of(context).size.height * 0.35, 20, 0),
               child: Column(
                 children: <Widget>[
                   // logoWidget("images/Logo1.png"),
@@ -51,16 +55,14 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  signInsignUpButton(context, true, () {
-                    FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: _emailTextController.text,
-                        password: _passwordTextController.text).then((value) {
-                          Navigator.push(context,
-                        MaterialPageRoute(builder: ((context) => MyApp())));
-                        }).onError((error, stackTrace) {
-                          popUp("Error ${error.toString()}");
-                          print("Error ${error.toString()}");
-                        });
+                  signInsignUpButton(context, true, () async {
+                    try{
+                      await _signIn();
+                    }
+                    catch(e){
+                      popUp("Error ${e.toString()}");
+                          print("Error ${e.toString()}");
+                    }
                   }),
                   signUpOption(),
                 ],
@@ -86,5 +88,22 @@ class _LoginPageState extends State<LoginPage> {
         )
       ],
     );
+  }
+
+  Future<void> _signIn() async {
+    String email = _emailTextController.text;
+    String pass = _passwordTextController.text;
+
+    user = await _auth.signInWithEmailAndPassword(email, pass);
+    user = await _auth.getcurrentUser();
+    print(user);
+    try {
+      Navigator.push(
+          context, MaterialPageRoute(builder: ((context) => MyApp())));
+      print(user);
+    } catch (e) {
+      popUp("Error ${e.toString()}");
+      print("Error ${e.toString()}");
+    }
   }
 }
