@@ -7,7 +7,7 @@ import 'package:group_9_birumanchu/pages/Login_SignUp/login.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/password_change_Widget.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/userInfochange.dart';
 
-
+ 
 class Accountinfo extends StatefulWidget {
   const Accountinfo({Key? key}) : super(key: key);
 
@@ -16,25 +16,29 @@ class Accountinfo extends StatefulWidget {
 }
 
 class _AccountinfoState extends State<Accountinfo> {
-
-var ds; late String name,email,ph_number,password;
+  var db = FirebaseFirestore.instance;
+  static String name = '',email = '',ph_number = '',password ='';
 
   @override
   void initState() {
-    print (uid);
-    _fetch(uid);
     super.initState();
+      //print (uid);
+      final docRef = db.collection("users").doc(uid);
+      docRef.get().then(
+        (DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          print(data);
+          email = data['email'];
+          ph_number = data['phoneNumber'];
+          password = data['password'];
+          name = data['name'];
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+      print(name + " "+ ph_number + " " + email +" "+ password);
   }
 
-  _fetch(String id) async{
-   await FirebaseFirestore.instance.collection('users').doc(id).get().then((DocumentSnapshot ds) => {
-    email = ds.get('email'),
-    name = ds.get('name'),
-    password = ds.get('password'),
-    ph_number = ds.get('phoneNumber')
-  });
-}
-
+   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +46,6 @@ var ds; late String name,email,ph_number,password;
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         elevation: 0,
-        title: Icon(Icons.arrow_back_ios_new_outlined),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -144,17 +147,20 @@ var ds; late String name,email,ph_number,password;
                   password_content: password,
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [ElevatedButton(onPressed: (){
-                    FirebaseAuth.instance.signOut().then((value) => {
-                      popUp("ログアウトしました。"),                     
-                            print("Sign Out"),
-                    });
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
-                  }, child: Text('ログアウト', style: TextStyle(fontSize: 24, fontWeight: FontWeight.normal),))],
+                  children: [Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(onPressed: (){
+                      FirebaseAuth.instance.signOut().then((value) => {
+                        popUp("ログアウトしました。"),                     
+                              print("Sign Out"),
+                      });
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+                    }, child: Text('ログアウト', style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal,),)),
+                  )],
                 ),
               ],
             ),
