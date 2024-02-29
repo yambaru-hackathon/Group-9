@@ -79,6 +79,7 @@ class _SignupState extends State<Signup> {
                 const SizedBox(
                   height: 30,
                 ),
+<<<<<<< HEAD
                 signInsignUpButton(context, false, () {
                   if (passwordConfirm(_passwordTextController.text,
                       _confirmPwdTextController.text)) {
@@ -105,6 +106,22 @@ class _SignupState extends State<Signup> {
                     popUp("もう一回確認しください。");
                   }
                 })
+=======
+                signInsignUpButton(context, false, () async {
+                  if (_passwordTextController.text == _confirmPwdTextController.text) {
+                      // Passwords match, proceed with authentication
+                      try {
+                        await createAuth();
+                      } catch (error) {
+                        popUp("Error ${error.toString()}");
+                        print("Error ${error.toString()}");
+                      }
+                    } else {
+                      popUp("パスワードをもう一度確認してください。");
+                    }
+                  },
+                )
+>>>>>>> b9de677 (ボタン修正)
               ],
             ),
           ),
