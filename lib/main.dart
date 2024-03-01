@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,9 +9,11 @@ import 'package:group_9_birumanchu/pages/chat_page.dart';
 import 'package:group_9_birumanchu/pages/map_page.dart';
 import 'package:group_9_birumanchu/firebase_options.dart'; // firebase_options.dartのインポート
 import 'package:group_9_birumanchu/pages/room_list_page.dart';
+import 'package:group_9_birumanchu/service/userDatabase.dart';
 import 'package:provider/provider.dart';
 
 String uid='', displayName = '';
+UserModel usermodel = UserModel(name: '', ph_num: '', email: '', password: '');
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,11 +51,28 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       uid = user!.uid;
       displayName = user!.displayName!;
+      fetch(uid);
     });
     print (displayName);
     print(uid);
     super.initState();
   }
+
+  fetch(String id){
+    final docRef = FirebaseFirestore.instance.collection('users').doc(uid);
+      docRef.get().then(
+        (DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          print(data);
+          usermodel.email = data['email'];
+          usermodel.ph_num = data['phoneNumber'];
+          usermodel.password = data['password'];
+          usermodel.name = data['name'];
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

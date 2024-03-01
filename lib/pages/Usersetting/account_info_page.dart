@@ -6,6 +6,7 @@ import 'package:group_9_birumanchu/main.dart';
 import 'package:group_9_birumanchu/pages/Login_SignUp/login.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/password_change_Widget.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/userInfochange.dart';
+import 'package:group_9_birumanchu/service/userDatabase.dart';
 
  
 class Accountinfo extends StatefulWidget {
@@ -17,13 +18,12 @@ class Accountinfo extends StatefulWidget {
 
 class _AccountinfoState extends State<Accountinfo> {
   var db = FirebaseFirestore.instance;
-  static String name = '',email = '',ph_number = '',password ='';
 
   @override
   void initState() {
     super.initState();
-      //print (uid);
-      final docRef = db.collection("users").doc(uid);
+
+      /*final docRef = db.collection("users").doc(uid);
       docRef.get().then(
         (DocumentSnapshot doc) {
           final data = doc.data() as Map<String, dynamic>;
@@ -34,10 +34,11 @@ class _AccountinfoState extends State<Accountinfo> {
           name = data['name'];
         },
         onError: (e) => print("Error getting document: $e"),
-      );
-      print(name + " "+ ph_number + " " + email +" "+ password);
+      );*/
+      print(usermodel.name + " "+ usermodel.ph_num + " " + usermodel.email +" "+ usermodel.password);
   }
 
+   
    
   @override
   Widget build(BuildContext context) {
@@ -91,17 +92,17 @@ class _AccountinfoState extends State<Accountinfo> {
                   ),
                 ),
                 formConstantText('氏名'),
-                FormOutputValue( name),
+                FormOutputValue(usermodel.name),
                  SizedBox(
                     height: 20,
                   ),
                 formConstantText('メールアドレス'),
-                FormOutputValue(email),
+                FormOutputValue(usermodel.email),
                  SizedBox(
                     height: 20,
                   ),
                 formConstantText('電話番号'),
-                FormOutputValue(ph_number),
+                FormOutputValue(usermodel.ph_num),
                  SizedBox(
                     height: 20,
                   ),
@@ -144,7 +145,7 @@ class _AccountinfoState extends State<Accountinfo> {
                   ),
                 ),
                 passwordInfo(
-                  password_content: password,
+                  password_content: usermodel.email,
                 ),
                 SizedBox(
                   height: 30,

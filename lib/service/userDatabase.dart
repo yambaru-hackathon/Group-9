@@ -3,10 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class UserModel{
-  final String name;
-  final String ph_num;
-  final String email;
-  final String password;
+   String name;
+   String ph_num;
+   String email;
+   String password;
 
   UserModel({
     required this.name, 
@@ -14,12 +14,13 @@ class UserModel{
     required this.email, 
     required this.password});
 
-  factory UserModel.FromFirestore(DocumentSnapshot doc){
-    final data = doc.data() as Map<String, dynamic>;
+  factory UserModel.FromFirestore(DocumentSnapshot<Map<String,dynamic>> snapshot, SnapshotOptions? options,){
+    final data = snapshot.data();
     return UserModel(
-      name: data['name'], 
-      ph_num: data['ph_num'],
-       email: data['email'], 
-       password: data['password']);
+      name: data?['name'], 
+      ph_num: data?['phoneNumber'],
+       email: data?['email'], 
+       password: data?['password']);
   }
+
 }
