@@ -15,11 +15,28 @@ class Post {
     required this.shoplist
   }
   );
+
+  cleardata (){
+    this.user_id = '';
+    this.date = '';
+    this.destination = '';
+    this.shoplist = '';
+  }
+
+  setdata(){
+    FirebaseFirestore.instance.collection('posts').doc(uid).set({
+        'user_id': uid,
+        'date': this.date,
+        'destination': this.destination,
+        'shoplist': shoplist,});
+  }
+
+
 }
 
 
 fetchpost(String id) {
-  final docRef = FirebaseFirestore.instance.collection('posts').doc(uid);
+  final docRef = FirebaseFirestore.instance.collection('posts').doc(id);
       docRef.get().then(
         (DocumentSnapshot doc) {
           final data = doc.data() as Map<String, dynamic>;
@@ -28,8 +45,6 @@ fetchpost(String id) {
            user_post.date = data['date'];
            user_post.destination = data['destination'];
            user_post.shoplist = data['shoplist'];
-          print(user_post.date + user_post.destination + user_post.shoplist);
-          light = false;
         },
         onError: (e) => print("Error getting document: $e"),
       );

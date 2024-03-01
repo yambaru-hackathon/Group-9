@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> {
       uid = user!.uid;
       displayName = user!.displayName!;
       fetch(uid);
+      fetchpost(uid);
     });
     print(displayName);
     print(uid);

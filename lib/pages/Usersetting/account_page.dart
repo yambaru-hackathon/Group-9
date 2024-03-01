@@ -24,7 +24,12 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   void initState() {
-    
+    fetchpost(uid);
+    print(user_post.user_id+ user_post.date + user_post.destination + user_post.shoplist);
+    if(user_post == '' ){
+      user_post.setdata();
+      fetchpost(uid);
+    }
     light = false;
     super.initState();
   }
@@ -135,7 +140,7 @@ class _SwitchExampleState extends State<SwitchExample> {
   void initState() {
     setState(() {
     fetchpost(uid);
-    print(user_post);
+    print(user_post.user_id+ user_post.date + user_post.destination + user_post.shoplist);
     });
     super.initState();
   }
