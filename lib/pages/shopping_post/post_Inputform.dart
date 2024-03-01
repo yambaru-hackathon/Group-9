@@ -88,7 +88,7 @@ class _PostInputForm extends State<PostInputForm> {
       });
       popUp("登録完了しました。");
       print("Post created");
-      Navigator.pop(context);
+      Navigator.of(context).pop(true);
     } catch (error) {
       popUp("Error ${error.toString()}");
       print("Error ${error.toString()}");

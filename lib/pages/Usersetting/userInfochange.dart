@@ -1,6 +1,6 @@
 //Password and User Information Change FILE
 import 'package:flutter/material.dart';
-import 'package:group_9_birumanchu/pages/Usersetting/account_info_page.dart';
+import 'package:group_9_birumanchu/Reusable%20Widget/reusable_widget.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/password_change_Widget.dart';
 
 bool _isvisible1 = true, _isvisible_2 = true;
@@ -85,22 +85,19 @@ class _InformationChange extends State<InformationChange> {
                    name = changeName;       //have to update in firestore
                     print(name);
                     Navigator.pop(context);
-                    showDialog(context: context, barrierDismissible: false, 
-                    builder: (BuildContext context){return ShowMsg(content: '氏名',);} );
+                    popUp('氏名変更しました。');
                 }
                 if(changeEmail.isNotEmpty){
                   email = changeEmail;
                   print(email);
                   Navigator.pop(context);
-                    showDialog(context: context, barrierDismissible: false, 
-                    builder: (BuildContext context){return ShowMsg(content: 'メールアドレス',);} );
+                    popUp('氏名変更しました。');
                 }
                 if(changePh_num.isNotEmpty){
                   ph_number = changePh_num;
                   print(ph_number);
                   Navigator.pop(context);
-                    showDialog(context: context, barrierDismissible: false, 
-                    builder: (BuildContext context){return ShowMsg(content: '電話番号',);} );
+                    popUp('氏名変更しました。');
                 }
               }
             }),

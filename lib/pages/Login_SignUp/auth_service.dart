@@ -28,5 +28,6 @@ class FirebaseAuthService{
   Future<dynamic> updatePassword (String newPassword) async {
     return await _auth.currentUser?.updatePassword(newPassword);
   }
+  
 
 }

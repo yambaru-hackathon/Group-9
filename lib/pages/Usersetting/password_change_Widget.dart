@@ -1,11 +1,12 @@
 //Password and User Information Change FILE
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:group_9_birumanchu/Reusable%20Widget/reusable_widget.dart';
+import 'package:group_9_birumanchu/main.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/account_info_page.dart';
 
 bool _isvisible1 = true, _isvisible_2 = true;
 
-String password='';
 //Password Change Class
 class PasswordChange extends StatefulWidget {
   var pwd;
@@ -93,13 +94,11 @@ class _PasswordChangeState extends State<PasswordChange> {
                 onPressed: () {
                   if (changepwd.isNotEmpty &&
                       confirmpwd.isNotEmpty &&
-                      changepwd == confirmpwd && changepwd.length>5) {
-                        password = changepwd;       //have to update in firestore
-                    print(password);
-                    Navigator.pop(context);
-                    showDialog(context: context, barrierDismissible: false, 
-                    builder: (BuildContext context){return ShowMsg(content: 'パスワード',);} );
-                  }
+                      changepwd == confirmpwd && changepwd.length>6) {
+                               //have to update in firestore
+                    print(usermodel);
+                    popUp('パスワード変更しました。');
+                    Navigator.pop(context, true);}
                   else{
                     showDialog(context: context, barrierDismissible: false, builder: (BuildContext context){
                                 return ShowErrorMsg(content: 'パスワード',);}
@@ -135,26 +134,3 @@ class ShowErrorMsg extends StatelessWidget {
             );
   }
 }
-// ignore: must_be_immutable
-class ShowMsg extends StatelessWidget { 
-String content;
-   ShowMsg({Key?key, required this.content});
-
-    @override
-  Widget build(BuildContext context) {
-    return AlertDialog(         // To display the title it is optional
-              content: Text(content+('変更しました。')),   // Message which will be pop up on the screen
-                                                  // Action widget which will provide the user to acknowledge the choice
-                actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-  }
-}
-
-  
