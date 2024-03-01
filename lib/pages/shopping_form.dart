@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:group_9_birumanchu/main.dart';
+import 'package:group_9_birumanchu/pages/chat_page.dart';
 import 'package:group_9_birumanchu/pages/room_list_page.dart';
 
 class FormPage extends StatefulWidget {
-  final String uid;
-   const FormPage({Key? key, required this.uid}) : super(key: key); // コンストラクターでuidを受け取るように修正
+  final String userid;
+  final String userName;
+  const FormPage({Key? key, required this.userid, required this.userName})
+      : super(key: key); // コンストラクターでuidを受け取るように修正
 
   @override
   State<FormPage> createState() => _FormPageState();
@@ -115,7 +119,7 @@ class _FormPageState extends State<FormPage> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_shopcontroller.text.isEmpty ||
                           _shoppinglistcontroller.text.isEmpty ||
                           _destinationcontroller.text.isEmpty) {
@@ -128,19 +132,41 @@ class _FormPageState extends State<FormPage> {
                         };
                         FirebaseFirestore.instance
                             .collection('form')
-                            .doc(uid)
+                            .doc(widget.userid)
                             .set(document);
                         _shopcontroller.clear();
                         _shoppinglistcontroller.clear();
                         _destinationcontroller.clear();
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => RoomListPage(),
+                        //   ),
+                        // );
+
+                        final date = DateTime.now().toLocal().toIso8601String();
+                        final roomRef = await FirebaseFirestore.instance
+                            .collection('chat_room')
+                            .doc(widget.userid)
+                            .set({
+                              'name': widget.userName,
+                              'createdAt': date,
+                              'createuser': uid,
+                              'destinationuser': widget.userid
+                            });
+                        // final roomId = roomRef.id;
+
+                        // 2. 作成したチャットルームのIDを指定してチャットページに遷移
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RoomListPage(),
-                          ),
+                              builder: (context) =>
+                                  ChatPage(userid:widget.userid,userName: widget.userName,),
+                              ),
                         );
                       }
                     },
+
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromRGBO(111, 17, 242, 1),
                       shape: RoundedRectangleBorder(

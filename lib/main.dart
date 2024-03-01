@@ -39,7 +39,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var currentIndex = 0;
 
-  static const _screens = [
+  static List<Widget> _screens = [
     MapPage(),
     RoomListPage(),
     AccountScreen(),
