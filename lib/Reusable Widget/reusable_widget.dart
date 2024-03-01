@@ -17,17 +17,17 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
-    cursorColor: Colors.white,
+    cursorColor: Colors.black,
     style: TextStyle(
-      color: Colors.white.withOpacity(0.9),
+      color: Colors.black,
     ),
     decoration: InputDecoration(
         prefixIcon: Icon(
           icon,
-          color: Colors.white,
+          color: Colors.black,
         ),
         labelText: text,
-        labelStyle: TextStyle(color: Colors.white.withOpacity(0.9)),
+        labelStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
         filled: true,
         floatingLabelBehavior: FloatingLabelBehavior.never,
         fillColor: Colors.white.withOpacity(0.3),
@@ -83,7 +83,7 @@ Future<bool?> popUp (String content){
                         msg: content,
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
+                        timeInSecForIosWeb: 3,
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
                         fontSize: 16.0);
@@ -97,7 +97,7 @@ Widget formConstantText(String content){
           Text(
             content,
             style: TextStyle(
-              color: Colors.grey.shade500,
+              color: Colors.grey.shade900,
               fontSize: 16,
               fontWeight: FontWeight.w300,
             ),
@@ -122,4 +122,28 @@ Widget FormOutputValue (String output){
         ],
       ),
     );
+}
+
+Widget Button(context, Function onTap) {
+  return Padding(
+    padding: const EdgeInsets.all(23.0),
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blueAccent.shade200, // Background color
+      ),
+      child: const Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Text(
+          '変更',
+          style: TextStyle(
+              fontWeight: FontWeight.w500, fontSize: 22, color: Colors.black),
+        ),
+      ),
+      onPressed: () {
+        showDialog(context: context, barrierDismissible: false, builder: (BuildContext context){
+          return onTap();
+      }, );/* ボタンがタップされた時の処理 */
+      }
+    ),
+  );
 }

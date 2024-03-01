@@ -1,10 +1,14 @@
+import 'dart:js';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
+import 'package:group_9_birumanchu/Reusable%20Widget/reusable_widget.dart';
 import 'package:group_9_birumanchu/main.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/account_info_page.dart';
+import 'package:group_9_birumanchu/pages/shopping_post/post_Inputform.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_card/responsive_card.dart';
 
@@ -142,8 +146,8 @@ class _SwitchExampleState extends State<SwitchExample> {
                       Text(
                         '買い物代行',
                         style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 26,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 22,
                         ),
                       ),
                     ],
@@ -180,89 +184,79 @@ class _SwitchExampleState extends State<SwitchExample> {
             color: Colors.black,
             thickness: 2,
           ),
-          Visibility(child: post(),
-          visible: light,),
-          
+          Visibility(
+            visible: light,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    PostContent('日程', '宛先'),
+                    PostContent(':', ':'),
+                    PostContent(des_date, des_city),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 8, 10, 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      formConstantText('頼めるお店'),
+                    ],
+                  ),
+                ),
+                Card(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: shopList(req_shop),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        child: Text(
+                          '変更',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return PostInputForm();
+                              });
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-Widget post() {
-  return 
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              PostContent('時間', '宛先'),
-              PostContent(':', ':'),
-              PostContent(des_date, des_city),
-            ],
-          ),
-          Padding(
-          padding: const EdgeInsets.fromLTRB(15, 8, 10, 5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              textoutput('頼めるお店'),
-            ],
-          ),
-        ),
-         Card(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-          ),
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: shopList(req_shop),
-          ),
-        ),
-        changeButton(),
-           ],
-      );
-}
-
 Widget PostContent(String content1, String content2) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      textoutput(content1),
-      textoutput(content2),
+      formConstantText(content1),
+      formConstantText(content2),
     ],
-  );
-}
-
-Widget textoutput(String content) {
-  return Text(
-    content,
-    style: const TextStyle(
-      fontWeight: FontWeight.w500,
-      fontSize: 22,
-    ),
-  );
-}
-
-Widget changeButton() {
-  return Padding(
-    padding: const EdgeInsets.all(23.0),
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blueAccent.shade200, // Background color
-      ),
-      onPressed: () {/* ボタンがタップされた時の処理 */},
-      child: const Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Text(
-          '変更',
-          style: TextStyle(
-              fontWeight: FontWeight.w500, fontSize: 22, color: Colors.black),
-        ),
-      ),
-    ),
   );
 }
 

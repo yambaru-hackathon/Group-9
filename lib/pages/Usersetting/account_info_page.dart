@@ -22,19 +22,6 @@ class _AccountinfoState extends State<Accountinfo> {
   @override
   void initState() {
     super.initState();
-
-      /*final docRef = db.collection("users").doc(uid);
-      docRef.get().then(
-        (DocumentSnapshot doc) {
-          final data = doc.data() as Map<String, dynamic>;
-          print(data);
-          email = data['email'];
-          ph_number = data['phoneNumber'];
-          password = data['password'];
-          name = data['name'];
-        },
-        onError: (e) => print("Error getting document: $e"),
-      );*/
       print(usermodel.name + " "+ usermodel.ph_num + " " + usermodel.email +" "+ usermodel.password);
   }
 
@@ -54,7 +41,7 @@ class _AccountinfoState extends State<Accountinfo> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-                0, MediaQuery.of(context).size.height * 0.08, 3, 0),
+                0, MediaQuery.of(context).size.height * 0.125, 3, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -73,7 +60,7 @@ class _AccountinfoState extends State<Accountinfo> {
                         ],
                       ),
                       Spacer(),
-                      Column(
+                     /* Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           IconButton(
@@ -87,7 +74,7 @@ class _AccountinfoState extends State<Accountinfo> {
                                 },
                               ), 
                         ],
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
@@ -122,7 +109,7 @@ class _AccountinfoState extends State<Accountinfo> {
                           ),
                         ],
                       ),
-                      const Spacer(),
+                      /*const Spacer(),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
                         child: Column(
@@ -140,7 +127,7 @@ class _AccountinfoState extends State<Accountinfo> {
                               ), 
                           ],
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
