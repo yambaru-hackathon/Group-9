@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: unused_import
 import 'package:flutter/foundation.dart';
+import 'package:group_9_birumanchu/main.dart';
 
 class UserModel{
    String name;
@@ -59,3 +60,29 @@ class Post {
     };
   }
 }
+
+fetch(String id){
+    final docRef = FirebaseFirestore.instance.collection('users').doc(uid);
+      docRef.get().then(
+        (DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          print(data);
+          usermodel.email = data['email'];
+          usermodel.ph_num = data['phoneNumber'];
+          usermodel.password = data['password'];
+          usermodel.name = data['name'];
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+   }
+
+fetchpost(String id) async{
+   final ref = FirebaseFirestore.instance.collection("posts").doc(id).withConverter(
+      fromFirestore: Post.fromFirestore,
+      toFirestore: (Post post, _) => post.toFirestore(),
+    );
+    final docSnap = await ref.get();
+    user_post = docSnap.data()!; // Convert to City object
+}
+
+  

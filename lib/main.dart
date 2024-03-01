@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 
 String uid = '', displayName = '';
 UserModel usermodel = UserModel(name: '', ph_num: '', email: '', password: '');
+Post user_post = Post(user_id: '', date: '', destination: '', shoplist: '');
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,26 +52,15 @@ class _MyAppState extends State<MyApp> {
       uid = user!.uid;
       displayName = user!.displayName!;
       fetch(uid);
+      fetchpost(uid);
     });
     print(displayName);
     print(uid);
+    print(fetchpost(uid));
     super.initState();
   }
 
-  fetch(String id) {
-    final docRef = FirebaseFirestore.instance.collection('users').doc(uid);
-    docRef.get().then(
-      (DocumentSnapshot doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        print(data);
-        usermodel.email = data['email'];
-        usermodel.ph_num = data['phoneNumber'];
-        usermodel.password = data['password'];
-        usermodel.name = data['name'];
-      },
-      onError: (e) => print("Error getting document: $e"),
-    );
-  }
+  
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,4 @@
-// import 'dart:js';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,90 +7,51 @@ import 'package:group_9_birumanchu/Reusable%20Widget/reusable_widget.dart';
 import 'package:group_9_birumanchu/main.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/account_info_page.dart';
 import 'package:group_9_birumanchu/pages/shopping_post/post_Inputform.dart';
-import 'package:responsive_framework/responsive_framework.dart';
+import 'package:group_9_birumanchu/service/userDatabase.dart';
 import 'package:responsive_card/responsive_card.dart';
 
-const String name = 'Dee';
+late String name = 'Dee';
 String des_date = '2/23/2024',
     des_city = '名護',
     req_shop = ' MaxValue, Aeon, SevenEleven, Lawson, Familymart ';
-bool light = false;
+late bool light=false;
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return ResponsiveBreakpoints(
-      breakpoints: [
-        Breakpoint(start: 0, end: 480, name: MOBILE),
-      ],
-      child: Scaffold(
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              pageTitle(),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(2, 20, 0, 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ProfilePicture(
-                      name: name,
-                      radius: 45,
-                      fontsize: 21,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      displayName,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SwitchExample(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  State<AccountScreen> createState() => _AccountScreenState();
 }
 
-class pageTitle extends StatelessWidget {
-  const pageTitle({
-    super.key,
-  });
+class _AccountScreenState extends State<AccountScreen> {
 
   @override
+  void initState() {
+    fetchpost(uid);
+    print(user_post);
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor:Colors.blueGrey,
+        elevation: 0,
+        title: Container(
+          padding: EdgeInsets.only(left: 4, right: 7, top: 1, bottom: 1),
+          child: Row(
             children: [
-              Text(
-                'アカウント',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w300),
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "マイページ",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white70),
+                        ),
+                ],
               ),
-            ],
-          ),
-          Spacer(),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 13, 13, 0),
-            child: Column(
+              const Spacer(),
+               Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 IconButton(
@@ -110,9 +69,57 @@ class pageTitle extends StatelessWidget {
                 ),
               ],
             ),
+            ],
           ),
-        ],
+        ),
       ),
+        body:  Container(
+          margin: const EdgeInsets.only(bottom : 10),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                0, MediaQuery.of(context).size.height * 0.12, 3, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 7, 0, 4),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ProfilePicture(
+                          name: displayName,
+                          radius: 45,
+                          fontsize: 21,
+                          random: true,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      displayName,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SwitchExample(),
+            ],
+          ),
+          ),
+        ),
+        ),
+        
     );
   }
 }
@@ -138,7 +145,7 @@ class _SwitchExampleState extends State<SwitchExample> {
           SizedBox(
             child: Row(
               children: [
-                Padding(
+                const Padding(
                   padding: EdgeInsets.fromLTRB(10, 1, 4, 3),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,15 +154,15 @@ class _SwitchExampleState extends State<SwitchExample> {
                         '買い物代行',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontSize: 22,
+                          fontSize: 20,
                         ),
                       ),
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 3, 13, 3),
+                  padding: const EdgeInsets.fromLTRB(0, 3, 13, 3),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -168,8 +175,7 @@ class _SwitchExampleState extends State<SwitchExample> {
                           setState(
                             () {
                               light = value;
-                              print(
-                                  light); // change the mode insert to firebase
+                              print(light); // change the mode insert to firebase
                             },
                           );
                         },
@@ -180,7 +186,7 @@ class _SwitchExampleState extends State<SwitchExample> {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             color: Colors.black,
             thickness: 2,
           ),
@@ -194,7 +200,7 @@ class _SwitchExampleState extends State<SwitchExample> {
                   children: [
                     PostContent('日程', '宛先'),
                     PostContent(':', ':'),
-                    PostContent(des_date, des_city),
+                    PostContent(user_post.date, user_post.destination),
                   ],
                 ),
                 Padding(
@@ -213,7 +219,7 @@ class _SwitchExampleState extends State<SwitchExample> {
                   color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: shopList(req_shop),
+                    child: shopList(user_post.shoplist),
                   ),
                 ),
                 Row(
@@ -222,10 +228,10 @@ class _SwitchExampleState extends State<SwitchExample> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
-                        child: Text(
+                        child: const Text(
                           '変更',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.normal,
                           ),
                         ),
