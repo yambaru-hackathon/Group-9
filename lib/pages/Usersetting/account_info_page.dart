@@ -41,7 +41,7 @@ class _AccountinfoState extends State<Accountinfo> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-                0, MediaQuery.of(context).size.height * 0.125, 3, 0),
+                0, MediaQuery.of(context).size.height * 0.11, 3, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
