@@ -17,7 +17,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   List<types.Message> _messages = [];
   String randomId = Uuid().v4();
-  final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c', firstName: '名前');
+  final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666a', firstName: '名前');
 
   void initState() {
     _getMessages();
