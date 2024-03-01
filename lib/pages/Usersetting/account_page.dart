@@ -7,14 +7,11 @@ import 'package:group_9_birumanchu/Reusable%20Widget/reusable_widget.dart';
 import 'package:group_9_birumanchu/main.dart';
 import 'package:group_9_birumanchu/pages/Usersetting/account_info_page.dart';
 import 'package:group_9_birumanchu/pages/shopping_post/post_Inputform.dart';
+import 'package:group_9_birumanchu/service/postDatabase.dart';
 import 'package:group_9_birumanchu/service/userDatabase.dart';
 import 'package:responsive_card/responsive_card.dart';
 
-late String name = 'Dee';
-String des_date = '2/23/2024',
-    des_city = '名護',
-    req_shop = ' MaxValue, Aeon, SevenEleven, Lawson, Familymart ';
-late bool light=false;
+ bool light=false;
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -27,16 +24,17 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   void initState() {
-    fetchpost(uid);
-    print(user_post);
+    
+    light = false;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor:Colors.blueGrey,
-        elevation: 0,
         title: Container(
           padding: EdgeInsets.only(left: 4, right: 7, top: 1, bottom: 1),
           child: Row(
@@ -80,7 +78,7 @@ class _AccountScreenState extends State<AccountScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-                0, MediaQuery.of(context).size.height * 0.12, 3, 0),
+                0, MediaQuery.of(context).size.height * 0.11, 3, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -132,6 +130,16 @@ class SwitchExample extends StatefulWidget {
 }
 
 class _SwitchExampleState extends State<SwitchExample> {
+
+@override
+  void initState() {
+    setState(() {
+    fetchpost(uid);
+    print(user_post);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveCard(
@@ -271,7 +279,7 @@ Widget shopList(String shop_list) {
     children: [
       Flexible(
         child: Text(
-          req_shop,
+          shop_list,
           softWrap: true,
           style: const TextStyle(
             fontWeight: FontWeight.w500,

@@ -97,6 +97,7 @@ class RoomListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor:Colors.blueGrey,
         automaticallyImplyLeading: false,
         title: Text('依頼'),
       ),

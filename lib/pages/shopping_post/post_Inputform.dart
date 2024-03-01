@@ -18,13 +18,6 @@ class _PostInputForm extends State<PostInputForm> {
       _destinationTextController = TextEditingController(),
       _shopListTextController = TextEditingController();
 
-   @override
-  void dispose() {
-    _dateTextController.dispose();
-    _destinationTextController.dispose();
-    _shopListTextController.dispose();
-    super.dispose();
-  }
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -87,8 +80,7 @@ class _PostInputForm extends State<PostInputForm> {
 
   Future<void> createPost() async {
     try {
-      final uuid = FirebaseAuth.instance.currentUser?.uid;
-      await FirebaseFirestore.instance.collection('posts').doc(uuid).set({
+      await FirebaseFirestore.instance.collection('posts').doc(uid).set({
         'user_id': uid,
         'date': _dateTextController.text,
         'destination': _destinationTextController.text,
@@ -96,8 +88,7 @@ class _PostInputForm extends State<PostInputForm> {
       });
       popUp("登録完了しました。");
       print("Post created");
-      dispose();
-      Navigator.push(context, MaterialPageRoute(builder: (context) => AccountScreen()));
+      Navigator.pop(context);
     } catch (error) {
       popUp("Error ${error.toString()}");
       print("Error ${error.toString()}");
