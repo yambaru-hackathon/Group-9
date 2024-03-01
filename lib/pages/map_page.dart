@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -123,62 +122,95 @@ class _MapPageState extends State<MapPage> {
 
     if (userData != null && userData.exists) {
       final userName = userData['name']; // ユーザー名を取得
-      final userid =userData['uid'];
+      final userid = userData['uid'];
+      final postData = await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(userid)
+          .get();
+      if (postData != null && postData.exists) {
+        final date = postData['date'];
+        final destination = postData['destination'];
+        final shoplist = postData['shoplist'];
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    '$userName',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                ]),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  '時間 : $date',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  '宛先 : $destination',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(height: 10),
+                const Text(
+                  '頼めるお店 :',
+                  style: TextStyle(fontSize: 18),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    '$shoplist',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Center(
+                  // ボタンを中央に配置
+                  child: ElevatedButton(
+                      child: const Text('依頼する'),
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  FormPage(userid: user, userName: userName)))),
+                ),
+              ],
+            ),
+          ),
+        );
+      }else {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(children: [
-                    Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      '$userName',
-                      style: TextStyle(fontSize: 25),
-                    ),
-                  ]),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    '時間',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 10),
-                  const Text(
-                    '宛先',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 10),
-                  const Text(
-                    '頼めるお店',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 20),
-                  Center(
-                    // ボタンを中央に配置
-                    child: ElevatedButton(
-                      child: const Text('依頼する'),
-                      onPressed: () => Navigator.push(
-                        context, MaterialPageRoute(
-                          builder: (context) => FormPage(userid:user, userName:userName)))
-                    ),
-                  ),
-                ],
-              ),
+          title: Text('Error'),
+          content: Text('Failed to fetch user data.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
             ),
+          ],
+        ),
       );
+    }
     } else {
       showDialog(
         context: context,
@@ -236,6 +268,7 @@ class _MapPageState extends State<MapPage> {
                               markers.connectionState == ConnectionState.waiting
                           ? const Center(child: CircularProgressIndicator())
                           : GoogleMap(
+                              mapType: MapType.normal,
                               initialCameraPosition: cameraPosition.data!,
                               myLocationEnabled: true,
                               myLocationButtonEnabled: true,
