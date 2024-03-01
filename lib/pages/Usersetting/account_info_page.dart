@@ -145,6 +145,7 @@ class _AccountinfoState extends State<Accountinfo> {
                       FirebaseAuth.instance.signOut().then((value) => {
                         popUp("ログアウトしました。"),                     
                               print("Sign Out"),
+                        user_post.cleardata(),
                       });
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
                     }, child: Text('ログアウト', style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal,),)),
