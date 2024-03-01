@@ -2,13 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:group_9_birumanchu/main.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage(this.name, {Key? key}) : super(key: key);
-
-  final String name;
+  final String userid;
+  final String userName;
+  const ChatPage({Key? key, required this.userid, required this.userName})
+      : super(key: key);
 
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -17,7 +19,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   List<types.Message> _messages = [];
   String randomId = Uuid().v4();
-  final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c', firstName: '名前');
+  final _user = types.User(id: uid);
 
   void initState() {
     _getMessages();
@@ -27,17 +29,18 @@ class _ChatPageState extends State<ChatPage> {
   void _getMessages() async {
     final getData = await FirebaseFirestore.instance
         .collection('chat_room')
-        .doc(widget.name)
+        .doc(widget.userid)
         .collection('contents')
         .get();
 
     final message = getData.docs
         .map((d) => types.TextMessage(
-              author: types.User(id: d.data()['uid'], firstName: d.data()['name']),
+              author:
+                  types.User(id: d.data()['uid'], firstName: d.data()['name']),
               createdAt: d.data()['createdAt'],
               id: d.data()['id'],
               text: d.data()['text'],
-              previewData: null, // ここでpreviewDataを追加し、nullで初期化します
+              previewData: null,
             ))
         .toList();
 
@@ -52,11 +55,11 @@ class _ChatPageState extends State<ChatPage> {
     });
     await FirebaseFirestore.instance
         .collection('chat_room')
-        .doc(widget.name)
+        .doc(widget.userid)
         .collection('contents')
         .add({
-      'uid': message.author.id,
-      'name': message.author.firstName,
+      'uid': uid,
+      'name': displayName,
       'createdAt': message.createdAt,
       'id': message.id,
       'text': message.text,
@@ -92,7 +95,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('チャット'),
+        title: Text('${widget.userName}'),
       ),
       body: Chat(
         theme: const DefaultChatTheme(

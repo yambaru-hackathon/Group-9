@@ -123,7 +123,7 @@ class _MapPageState extends State<MapPage> {
 
     if (userData != null && userData.exists) {
       final userName = userData['name']; // ユーザー名を取得
-      final uid =userData['uid'];
+      final userid =userData['uid'];
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -170,7 +170,9 @@ class _MapPageState extends State<MapPage> {
                     // ボタンを中央に配置
                     child: ElevatedButton(
                       child: const Text('依頼する'),
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FormPage(uid: uid)))
+                      onPressed: () => Navigator.push(
+                        context, MaterialPageRoute(
+                          builder: (context) => FormPage(userid:user, userName:userName)))
                     ),
                   ),
                 ],
